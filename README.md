@@ -27,10 +27,10 @@ https://drive.google.com/file/d/19FoSLLu_qNV9GABvWOBlM1npcSZAdtTw/view?usp=shari
 3. Performance Analysis<br><br>
 
 ○ What accuracy did your model achieve?<br>
-- The model achieved an accuracy of around 87.79% during validation, which indicates that the model can correctly classify most of the images.<br><br>
+- After multiple rounds of improvement — adding dropout, data augmentation, EarlyStopping, and ReduceLROnPlateau — the model achieved a best validation accuracy of 88.7%. An earlier version without augmentation reached 91.0%, but had unstable validation loss indicating overfitting.<br><br>
 
 ○ How did the number of images affect the model’s performance?<br>
-- The number of images affects how well the model learns. A larger dataset usually improves the model’s performance because it provides more examples for the model to learn from.<br><br>
+- In my dataset, there were about 275 images per class on average. This limited how high the model's accuracy could go — more images per class would likely push accuracy above 93%.<br><br>
 
 4. Critical Thinking<br><br>
 
@@ -58,7 +58,7 @@ Visualization & Overfitting<br><br>
 - In the first model, I noticed that the training accuracy kept increasing, but the validation accuracy did not improve as much. In some cases, the validation accuracy even started to decrease while the training accuracy stayed high. This showed that the model was learning the training data too well but was not performing as well on new data.<br><br>
 
 2. How did data augmentation affect validation accuracy?<br>
-- After applying data augmentation, the validation accuracy improved slightly and became more stable. The model was able to handle different variations of the images better because it saw more diverse examples during training. This helped the model perform better on the validation dataset.<br><br>
+- After applying data augmentation, the validation accuracy improved slightly and became more stable. The model was able to handle different variations of the images better because it saw more diverse examples during training. This helped the model perform better on the validation dataset.I also found that augmentation that was too aggressive — such as rotating images up to 108° — actually decreased validation accuracy to 80%, because the distorted images became harder to learn from than real plant images.<br><br>
 
 Model Improvement<br><br>
 3. What is the purpose of dropout layers?<br>
@@ -72,11 +72,11 @@ Performance Comparison<br><br>
 - Before adding improvements, the model had high training accuracy but lower validation accuracy, which suggested overfitting. After adding dropout and data augmentation, the validation accuracy improved and became closer to the training accuracy. This showed that the model was able to generalize better.<br><br>
 
 6. Which technique contributed most to improvement?<br>
-- Among the techniques used, data augmentation contributed the most to the improvement. It allowed the model to train on more varied images, which helped it learn more robust features and reduced overfitting.<br><br>
+- Among the techniques used, data augmentation contributed the most to the improvement. It allowed the model to train on more varied images, which helped it learn more robust features and reduced overfitting. Both data augmentation and the training callbacks contributed significantly. Augmentation reduced overfitting by adding image variety, while EarlyStopping prevented training past the best epoch and ReduceLROnPlateau helped the model fine-tune by automatically lowering the learning rate when progress stalled.<br><br>
 
 Deployment & Application<br><br>
 7. Why is saving the model important?<br>
 - Saving the model is important because it allows us to reuse the trained model later without retraining it from scratch. This saves time and resources, especially when training takes a long time.<br><br>
 
 8. How can this model be deployed in a real-world system?<br>
-- This model can be deployed in different applications such as websites, mobile apps, or automated systems. For example, it can be used in an image recognition system where a user uploads an image and the model predicts what it contains.<br><br>
+- A real-world application is a mobile plant identification app where users photograph a plant and the model identifies the species. This could help gardeners, students, or farmers quickly identify ornamental plants without needing expert knowledge..<br><br>
